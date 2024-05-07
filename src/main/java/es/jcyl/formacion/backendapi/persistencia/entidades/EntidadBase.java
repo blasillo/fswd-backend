@@ -1,8 +1,8 @@
 package es.jcyl.formacion.backendapi.persistencia.entidades;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,29 +13,22 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Getter
 @Setter
 @SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "app_roles")
+@NoArgsConstructor
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class Rol {
+public class EntidadBase {
 
-    @Id
-    @GeneratedValue
-    @Column(name="id_rol")
-    private Integer id;
+    @CreatedDate
+    @Column(name="F_CREACION", updatable = false)
+    private LocalDateTime fechaCreacion;
 
-    @Column(name="nombre_rol", length = 60, nullable = false, unique = true)
-    private String nombre;
-
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private List<Usuario> usuarios;
-
+    @LastModifiedDate
+    @Column(name="F_MODIFICACION",insertable = false)
+    private LocalDateTime fechaModificacion;
 }

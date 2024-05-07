@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,13 +14,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "APP_TAREAS")
-@EntityListeners(AuditingEntityListener.class)
-public class Tarea {
+public class Tarea extends EntidadBase {
 
     @Id
     @GeneratedValue
@@ -40,16 +40,5 @@ public class Tarea {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
-
-
-    @CreatedDate
-    @Column(name="F_CREACION", updatable = false)
-    private LocalDateTime fechaCreacion;
-
-    @LastModifiedDate
-    @Column(name="F_MODIFICACION",insertable = false)
-    private LocalDateTime fechaModificacion;
-
-
 
 }

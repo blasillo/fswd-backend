@@ -16,14 +16,13 @@ import static jakarta.persistence.FetchType.EAGER;
 
 @Getter
 @Setter
-@Builder
-//@SuperBuilder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "APP_USUARIOS")
 @EntityListeners(AuditingEntityListener.class)
-public class Usuario {
+public class Usuario extends EntidadBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,14 +49,5 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "id_rol")
     )
     private List<Rol> roles;
-
-    @CreatedDate
-    @Column(name="F_CREACION", updatable = false)
-    private LocalDateTime fechaCreacion;
-
-    @LastModifiedDate
-    @Column(name="F_MODIFICACION",insertable = false)
-    private LocalDateTime fechaModificacion;
-
 
 }

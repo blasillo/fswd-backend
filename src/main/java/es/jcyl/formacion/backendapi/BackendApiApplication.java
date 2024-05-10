@@ -1,9 +1,11 @@
 package es.jcyl.formacion.backendapi;
 
+import es.jcyl.formacion.backendapi.modelos.TareaModelo;
 import es.jcyl.formacion.backendapi.persistencia.entidades.Rol;
 import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.RolesRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
+import es.jcyl.formacion.backendapi.persistencia.servicios.TareaServicio;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +25,9 @@ public class BackendApiApplication {
 
 
     @Bean
-    public CommandLineRunner runner(RolesRepositorio rolRepo, UsuariosRepositorio usuarioRepo) {
+    public CommandLineRunner runner(RolesRepositorio rolRepo,
+                                    UsuariosRepositorio usuarioRepo,
+                                    TareaServicio tareaSrv ) {
         return args -> {
 
             Rol base = rolRepo.save(Rol.builder().nombre("BASE").build());
@@ -47,6 +51,29 @@ public class BackendApiApplication {
             });
 
             rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { System.out.println ("Usuario base: " + u.getNombreCompleto() );});
+
+
+            // crear tarea
+
+            TareaModelo modelo = TareaModelo.builder()
+                                            .nombre("Demo")
+                                            .estado(0)
+                                            .color("ROJO")
+                                            .usuarioCorreo("formacion@eclap.jcyl.es").build();
+
+            TareaModelo resultado = tareaSrv.crearTarea( modelo );
+
+            System.out.println( "Tarea creada : " + resultado.getNombre() + " por " + resultado.getUsuarioCorreo() );
+
+            List<TareaModelo> misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
+
+            misTareas.forEach( t -> { System.out.println ("Mi Tarea : " + t.getNombre() + " por " + t.getUsuarioCorreo()  ); } );
+
+            resultado.setNombre ("Demo terminada");
+
+            TareaModelo resultado2 = tareaSrv.modificarTarea( resultado );
+
+            System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
 
         };
     }

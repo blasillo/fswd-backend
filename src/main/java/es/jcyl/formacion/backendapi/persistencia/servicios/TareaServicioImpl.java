@@ -61,6 +61,12 @@ public class TareaServicioImpl implements TareaServicio {
 
     @Override
     public Integer borrarTarea(Integer tareaId) {
-        return 0;
+        Optional<Tarea> tarea = tareasRepo.findById(tareaId);
+
+        if(tarea.isEmpty()) {
+            throw new EntityNotFoundException("La tarea no existe");
+        }
+        tarea.ifPresent(tareasRepo::delete);
+        return tareaId;
     }
 }

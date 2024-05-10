@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -36,6 +37,16 @@ public class BackendApiApplication {
                             .roles( Arrays.asList(base, admin ))
                             .build()
             );
+
+
+            // consultar
+
+            List<Usuario> admins =  usuarioRepo.listadoAdministradores();//usuarioRepo.findByRolesIs( admin );
+            admins.forEach( usu -> {
+                System.out.println ("Administrador: " + usu.getNombreCompleto() );
+            });
+
+            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { System.out.println ("Usuario base: " + u.getNombreCompleto() );});
 
         };
     }

@@ -1,4 +1,4 @@
-package es.jcyl.formacion.backendapi.persistencia.servicios;
+package es.jcyl.formacion.backendapi.servicios;
 
 import es.jcyl.formacion.backendapi.modelos.Paginado;
 import es.jcyl.formacion.backendapi.modelos.TareaModelo;

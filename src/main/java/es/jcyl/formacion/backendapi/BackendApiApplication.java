@@ -5,7 +5,7 @@ import es.jcyl.formacion.backendapi.persistencia.entidades.Rol;
 import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.RolesRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
-import es.jcyl.formacion.backendapi.persistencia.servicios.TareaServicio;
+import es.jcyl.formacion.backendapi.servicios.TareaServicio;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

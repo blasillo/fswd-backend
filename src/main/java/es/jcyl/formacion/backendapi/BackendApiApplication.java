@@ -75,11 +75,12 @@ public class BackendApiApplication {
 
             System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
 
+            /*
             tareaSrv.borrarTarea(resultado2.getId());
 
             misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
             System.out.println ("Contador Tareas: " + misTareas.size() );
-
+            */
         };
     }
 

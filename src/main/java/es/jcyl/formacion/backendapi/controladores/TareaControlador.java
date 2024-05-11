@@ -18,17 +18,20 @@ public class TareaControlador {
 
 
     @PostMapping
-    public ResponseEntity<TareaModelo>  nuevaTarea (@RequestBody TareaModelo modelo) {
+    public ResponseEntity<TareaModelo>  nuevaTarea (
+            @RequestBody TareaModelo modelo) {
         return ResponseEntity.ok(  servicio.crearTarea ( modelo) );
     }
 
     @GetMapping
-    public ResponseEntity<List<TareaModelo>> listadoTareas (@RequestParam("correo") String correo) {
+    public ResponseEntity<List<TareaModelo>> listadoTareas (
+            @RequestParam("correo") String correo) {
         return ResponseEntity.ok ( servicio.obtenerTareas(correo));
     }
 
     @PutMapping()
-    public ResponseEntity<TareaModelo> editarTarea (@RequestBody TareaModelo modelo) {
+    public ResponseEntity<TareaModelo> editarTarea (
+            @RequestBody TareaModelo modelo) {
         return ResponseEntity.ok( servicio.modificarTarea( modelo ));
     }
 

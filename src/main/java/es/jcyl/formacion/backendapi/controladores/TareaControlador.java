@@ -27,6 +27,14 @@ public class TareaControlador {
         return ResponseEntity.ok ( servicio.obtenerTareas(correo));
     }
 
+    @PutMapping()
+    public ResponseEntity<TareaModelo> editarTarea (@RequestBody TareaModelo modelo) {
+        return ResponseEntity.ok( servicio.modificarTarea( modelo ));
+    }
 
+    @DeleteMapping()
+    public Integer deleteTodo(@RequestParam("tareaId") Integer id) {
+        return servicio.borrarTarea( id );
+    }
 
 }

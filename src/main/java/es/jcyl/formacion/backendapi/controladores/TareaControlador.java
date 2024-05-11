@@ -3,6 +3,7 @@ package es.jcyl.formacion.backendapi.controladores;
 
 import es.jcyl.formacion.backendapi.servicios.TareaServicio;
 import es.jcyl.formacion.backendapi.modelos.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class TareaControlador {
 
     @PostMapping
     public ResponseEntity<TareaModelo>  nuevaTarea (
-            @RequestBody TareaModelo modelo) {
+            @Valid @RequestBody TareaModelo modelo) {
         return ResponseEntity.ok(  servicio.crearTarea ( modelo) );
     }
 
@@ -31,7 +32,7 @@ public class TareaControlador {
 
     @PutMapping()
     public ResponseEntity<TareaModelo> editarTarea (
-            @RequestBody TareaModelo modelo) {
+            @Valid @RequestBody TareaModelo modelo) {
         return ResponseEntity.ok( servicio.modificarTarea( modelo ));
     }
 

@@ -26,6 +26,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SeguridadConfig {
 
     private final UserDetailsService usuarioDetalleSrv;
+    private final JwtFiltro jwtFiltro;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -73,7 +75,10 @@ public class SeguridadConfig {
                                 "/api/v1/**"
                         ).permitAll()
                         .anyRequest().authenticated()
-                ).sessionManagement(session -> session.sessionCreationPolicy(STATELESS));
+                ).sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtFiltro, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

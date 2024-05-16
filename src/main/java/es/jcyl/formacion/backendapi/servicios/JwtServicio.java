@@ -42,7 +42,7 @@ public class JwtServicio {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .claim("authorities", authorities)
+                .claim("roles", authorities)
                 .signWith(getSignInKey())
                 .compact();
 

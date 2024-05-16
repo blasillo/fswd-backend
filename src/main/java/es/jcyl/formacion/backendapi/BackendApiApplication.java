@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-@EnableJpaAuditinggit
+@EnableJpaAuditing
 public class BackendApiApplication {
 
     public static void main(String[] args) {

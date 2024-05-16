@@ -8,9 +8,15 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jakarta.persistence.FetchType.EAGER;
 
@@ -23,7 +29,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @Entity
 @Table(name = "APP_USUARIOS")
 @EntityListeners(AuditingEntityListener.class)
-public class Usuario {
+public class Usuario implements UserDetails, Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,4 +66,46 @@ public class Usuario {
     private LocalDateTime fechaModificacion;
 
 
+    @Override
+    public String getName() {
+        return correo;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles
+                .stream()
+                .map(r -> new SimpleGrantedAuthority( r.getNombre() ))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return this.clave;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.nombreCompleto;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

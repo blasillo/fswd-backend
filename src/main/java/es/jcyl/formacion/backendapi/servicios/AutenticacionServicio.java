@@ -1,17 +1,41 @@
 package es.jcyl.formacion.backendapi.servicios;
 
+import es.jcyl.formacion.backendapi.modelos.AutenticacionRespuesta;
+import es.jcyl.formacion.backendapi.modelos.Credenciales;
 import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 
-//import org.springframework.security.core.Authentication;
-//import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
 
-public interface AutenticacionServicio {
+import java.util.HashMap;
 
-    String registrarUsuario(Usuario nuevoUsuario);
+@Service
+@RequiredArgsConstructor
+public class AutenticacionServicio {
 
-    //Map<String, String> forgotPassword(Authentication authentication, Map<String, String> forgotter);
+    private final UsuariosRepositorio usuarioRepo;
+    private final JwtServicio jwtServicio;
+    private final AuthenticationManager authManager;
 
-    //String reiniciarClace (Map<String, String> resetModel);
+    public AutenticacionRespuesta autenticar(Credenciales login) {
 
-    //Map<String, String> inicioSesion(Authentication authentication, Map<String, String> loginModel);
+        var auth = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        login.getCorreo(),
+                        login.getClave()
+                )
+        );
+        var claims = new HashMap<String, Object>();
+        var usuario = ((Usuario) auth.getPrincipal());
+        claims.put("correo", usuario.getName());
+        var jwtToken = jwtServicio.generateToken(claims,usuario);
+        return AutenticacionRespuesta.builder()
+                .token( jwtToken)
+                .build();
+    }
+
+
 }

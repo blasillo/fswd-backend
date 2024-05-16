@@ -39,7 +39,7 @@ public class JwtFiltro extends OncePerRequestFilter {
         }
         jwt = authHeader.substring(7);  // extraer el token
 
-        //correo = jwtService.extractUsername(jwt);
+        //correo = jwtService.extraerNombre(jwt);
 
 
 

@@ -1,3 +1,6 @@
-FROM eclipse-temurin:17-jdk-alpine
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM amazoncorretto:17
+
+# Copia el archivo JAR de la aplicación Spring Boot a la imagen
+COPY target/*.jar /app/app.jar
+
+ENTRYPOINT ["java","-jar","/app/app.jar"]

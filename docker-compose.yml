@@ -22,7 +22,7 @@ services:
       'spring.datasource.url': 'jdbc:oracle:thin:@oracle:1521:FREE'
     depends_on:
       - oracle-db
-    #  command: ["/bin/sh","-c","while ! nc -z oracle 1521;  do sleep 1; done && java -jar /app.jar"]
+    #command: ["/bin/sh","-c","while ! nc -z oracle-db 1521;  do sleep 1; done && java -jar /app/app.jar"]
     networks:
       - aplicaciones
 

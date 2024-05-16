@@ -8,5 +8,25 @@ services:
     image: gvenzl/oracle-free
     environment:
       ORACLE_PASSWORD: SuperSecret0
+    networks:
+      - aplicaciones
     volumes:
       - ./scripts:/docker-entrypoint-initdb.d
+
+  backend:
+    ports:
+      - '8080:8080'
+    container_name: backend
+    image: formacion/tareas
+    environment:
+      'spring.datasource.url': 'jdbc:oracle:thin:@oracle:1521:FREE'
+    depends_on:
+      - oracle-db
+    #  command: ["/bin/sh","-c","while ! nc -z oracle 1521;  do sleep 1; done && java -jar /app.jar"]
+    networks:
+      - aplicaciones
+
+networks:
+  aplicaciones:
+    driver: bridge
+

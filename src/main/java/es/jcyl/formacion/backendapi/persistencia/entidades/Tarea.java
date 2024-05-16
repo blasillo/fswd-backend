@@ -50,6 +50,4 @@ public class Tarea {
     @Column(name="F_MODIFICACION",insertable = false)
     private LocalDateTime fechaModificacion;
 
-
-
 }

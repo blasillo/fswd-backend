@@ -1,5 +1,6 @@
 package es.jcyl.formacion.backendapi.servicios;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import io.jsonwebtoken.security.Keys;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.function.Function;
 
 
 @Service
@@ -22,14 +24,18 @@ public class JwtServicio {
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
 
-
-
-    public String generateToken(
+    public String generarToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails
-    ) {
+            UserDetails userDetails ) {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
+
+    public boolean esTokenValido (String token, UserDetails detalles) {
+        final String username = extraerNombreUsuario(token);
+        return (username.equals(detalles.getUsername())) && !estaTokenExpirado(token);
+    }
+
+
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
         var authorities = userDetails.getAuthorities()
@@ -48,9 +54,36 @@ public class JwtServicio {
 
     }
 
+    public String extraerNombreUsuario (String token) {
+        return extraerClaim(token, Claims::getSubject);
+    }
+
+    public <T> T extraerClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extraerTodosClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+
+    private boolean estaTokenExpirado(String token) {
+        return extraerExpiracion(token).before(new Date());
+    }
+
+    private Date extraerExpiracion(String token) {
+        return extraerClaim(token, Claims::getExpiration);
+    }
+
+    private Claims extraerTodosClaims(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 

@@ -31,7 +31,7 @@ public class AutenticacionServicio {
         var claims = new HashMap<String, Object>();
         var usuario = ((Usuario) auth.getPrincipal());
         claims.put("email", usuario.getName());
-        var jwtToken = jwtServicio.generateToken(claims,usuario);
+        var jwtToken = jwtServicio.generarToken(claims,usuario);
         return AutenticacionRespuesta.builder()
                 .token( jwtToken)
                 .build();

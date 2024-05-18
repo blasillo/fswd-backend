@@ -16,29 +16,26 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "APP_TAREAS")
+# TODO: anotar entidad
+# TODO: anotar tabla
 @EntityListeners(AuditingEntityListener.class)
 public class Tarea {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "ID_TAREA")
+    # TODO: anotar PK
+    # TODO: anotar valor generado
+    # TODO: anotar columna
     private Integer id;
 
-    @Column(name = "nombre", length = 200, nullable = false)
+    # TODO: anotar columna
     private String nombre;
 
-    @Column (name="estado")
-    @Min(value = 0, message = "el estado debe estar entre 0 y 100")
-    @Max(value = 100, message = "el estado debe estar entre 0 y 100")
+    # TODO: anotar columna
     private Integer estado;
 
-    @Column(name = "color", length=50)
+    # TODO: anotar columna
     private String color;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_USUARIO")
+    # TODO: anotar relacion
     private Usuario usuario;
 
 
@@ -49,7 +46,5 @@ public class Tarea {
     @LastModifiedDate
     @Column(name="F_MODIFICACION",insertable = false)
     private LocalDateTime fechaModificacion;
-
-
 
 }

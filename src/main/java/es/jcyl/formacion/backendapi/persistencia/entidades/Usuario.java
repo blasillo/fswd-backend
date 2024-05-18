@@ -20,35 +20,29 @@ import static jakarta.persistence.FetchType.EAGER;
 //@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "APP_USUARIOS")
+# TODO: anotar entidad
+# TODO: anotar tabla
 @EntityListeners(AuditingEntityListener.class)
 public class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_USUARIO")
+    # TODO: anotar PK
+    # TODO: anotar valor generado
+    # TODO: anotar columna
     private Integer id;
 
-    @Column (name="NOMBRE_APELLIDOS", length = 200)
+    # TODO: anotar columna
     private String nombreCompleto;
 
-    @Column (name="INICIALES", length = 10)
+    # TODO: anotar columna
     private String iniciales;
 
-    @Column (name="CORREO_ELECTRONICO",length = 100, unique = true, nullable = false)
+    # TODO: anotar columna (deber se única)
     private String correo;
 
-    @Column (name = "CONTRASENA", length = 100 , nullable = false)
-    @Size(min=6,max=100)
+    # TODO: anotar columna
     private String clave;
 
-    @ManyToMany( fetch = EAGER )
-    @JoinTable(
-            name = "app_usuarios_roles", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_rol")
-    )
+    # TODO: anotar relación muchos-a-muchos
     private List<Rol> roles;
 
     @CreatedDate
@@ -58,6 +52,4 @@ public class Usuario {
     @LastModifiedDate
     @Column(name="F_MODIFICACION",insertable = false)
     private LocalDateTime fechaModificacion;
-
-
 }

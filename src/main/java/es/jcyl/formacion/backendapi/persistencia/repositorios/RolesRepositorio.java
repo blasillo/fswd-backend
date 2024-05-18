@@ -9,10 +9,7 @@ import java.util.List;
 
 public interface RolesRepositorio extends JpaRepository<Rol,Integer> {
 
-    @Query("""
-            SELECT u 
-              FROM Usuario u JOIN u.roles r 
-              WHERE r.nombre = :nombreRol
-            """)
+
+    // TODO : consultar todos los usuarios de un rol
     List<Usuario> listadoUsuariosPorRol (String nombreRol);
 }

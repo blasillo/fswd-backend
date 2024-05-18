@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface TareasRepositorio extends JpaRepository<Tarea,Integer> {
 
-  List<Tarea> findByUsuario (Usuario usuario);
+  // TODO: lista las tareas que pertenecen a un usuario
+  List<Tarea> xxxxxxxxxxxxx (Usuario usuario);
+
+  // TODO: lista de tareas cuyo estado esta por encima del 90%
+  List<Tarea> xxxxxxxxxxxxxxxx ();
+
+
 
 }

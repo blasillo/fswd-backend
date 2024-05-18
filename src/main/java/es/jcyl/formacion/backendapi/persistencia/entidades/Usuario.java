@@ -20,29 +20,29 @@ import static jakarta.persistence.FetchType.EAGER;
 //@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-# TODO: anotar entidad
-# TODO: anotar tabla
+// TODO: anotar entidad
+// TODO: anotar tabla
 @EntityListeners(AuditingEntityListener.class)
 public class Usuario {
 
-    # TODO: anotar PK
-    # TODO: anotar valor generado
-    # TODO: anotar columna
+    // TODO: anotar PK
+    // TODO: anotar valor generado
+    // TODO: anotar columna
     private Integer id;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private String nombreCompleto;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private String iniciales;
 
-    # TODO: anotar columna (deber se única)
+    // TODO: anotar columna (deber se única)
     private String correo;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private String clave;
 
-    # TODO: anotar relación muchos-a-muchos
+    // TODO: anotar relación muchos-a-muchos
     private List<Rol> roles;
 
     @CreatedDate

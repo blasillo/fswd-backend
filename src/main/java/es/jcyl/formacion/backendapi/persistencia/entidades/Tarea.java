@@ -16,26 +16,26 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-# TODO: anotar entidad
-# TODO: anotar tabla
+// TODO: anotar entidad
+// TODO: anotar tabla
 @EntityListeners(AuditingEntityListener.class)
 public class Tarea {
 
-    # TODO: anotar PK
-    # TODO: anotar valor generado
-    # TODO: anotar columna
+    // TODO: anotar PK
+    // TODO: anotar valor generado
+    // TODO: anotar columna
     private Integer id;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private String nombre;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private Integer estado;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private String color;
 
-    # TODO: anotar relacion
+    // TODO: anotar relacion
     private Usuario usuario;
 
 

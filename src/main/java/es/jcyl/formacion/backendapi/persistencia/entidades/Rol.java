@@ -20,21 +20,21 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-# TODO: anotar entidad
-# TODO: anotar tabla
+// TODO: anotar entidad
+// TODO: anotar tabla
 @EntityListeners(AuditingEntityListener.class)
 public class Rol {
 
-    # TODO: anotar PK
-    # TODO: anotar valor generado
-    # TODO: anotar columna
+    // TODO: anotar PK
+    // TODO: anotar valor generado
+    // TODO: anotar columna
     private Integer id;
 
-    # TODO: anotar columna
+    // TODO: anotar columna
     private String nombre;
 
 
-    # TODO: anotar relacion muchos-a-muchos
+    // TODO: anotar relacion muchos-a-muchos
     private List<Usuario> usuarios;
 
     @CreatedDate

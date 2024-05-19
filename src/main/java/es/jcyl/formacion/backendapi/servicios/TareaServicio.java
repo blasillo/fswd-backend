@@ -10,7 +10,7 @@ public interface TareaServicio {
     // definir CRUD
     TareaModelo crearTarea (TareaModelo tarea );
     List<TareaModelo> obtenerTareas ( String email );
-    //Paginado<TareaModelo> obtenerTareasPaginado (String email);
+
     TareaModelo modificarTarea (TareaModelo tarea);
     Integer borrarTarea (Integer tareaId);
 }

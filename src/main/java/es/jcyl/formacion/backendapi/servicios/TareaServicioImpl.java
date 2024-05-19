@@ -35,12 +35,9 @@ public class TareaServicioImpl implements TareaServicio {
 
     @Override
     public List<TareaModelo> obtenerTareas(String email) {
-        Usuario usuario = usuariosRepo.findByCorreo(email);
-        if(usuario == null) {
-            throw new EntityNotFoundException("El usuario no existe");
-        }
 
         List<Tarea> tareas = tareasRepo.findByUsuario(usuario);
+
         List<TareaModelo> respuesta = tareas.stream().map(mapeo::deEntidadAModelo).toList();
 
         return respuesta;
@@ -52,20 +49,18 @@ public class TareaServicioImpl implements TareaServicio {
         if(tarea.isEmpty()) {
             throw new EntityNotFoundException("La tarea no existe");
         }
-        Usuario usuario = usuariosRepo.findByCorreo(modelo.getUsuarioCorreo());
-        if(usuario == null) {
-            throw new EntityNotFoundException("El usuario no existe");
-        }
+        Usuario usuario = usuariosRepo.findByCorreo(email)
+                .orElseThrow( () ->  new EntityNotFoundException("El usuario no existe"));
+
         return mapeo.deEntidadAModelo( tareasRepo.save( mapeo.deModeloAEntidad (modelo,usuario) ) );
     }
 
     @Override
     public Integer borrarTarea(Integer tareaId) {
-        Optional<Tarea> tarea = tareasRepo.findById(tareaId);
+        Optional<Tarea> tarea = tareasRepo.findById(tareaId).orElseThrow(
+                () -> new EntityNotFoundException("La tarea no existe");
+        );
 
-        if(tarea.isEmpty()) {
-            throw new EntityNotFoundException("La tarea no existe");
-        }
         tarea.ifPresent(tareasRepo::delete);
         return tareaId;
     }

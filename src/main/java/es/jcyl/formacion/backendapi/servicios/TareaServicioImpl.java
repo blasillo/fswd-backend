@@ -17,7 +17,7 @@ import java.util.Optional;
 // TODO : anotaciones necesarios
 public class TareaServicioImpl implements TareaServicio {
 
-    // TODO : inyectar dependecnias
+    // TODO : inyectar dependecias
     // TareasRepositorio tareasRepo;
     // UsuariosRepositorio usuariosRepo;
 

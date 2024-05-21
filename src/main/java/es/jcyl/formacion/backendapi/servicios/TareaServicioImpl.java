@@ -7,6 +7,7 @@ import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

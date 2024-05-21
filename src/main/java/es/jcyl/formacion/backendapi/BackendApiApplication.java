@@ -57,34 +57,17 @@ public class BackendApiApplication {
             // crear tarea
 
             TareaModelo modelo = TareaModelo.builder()
-                                            .nombre("Demo")
-                                            .estado(0)
-                                            .color("ROJO")
-                                            .usuarioCorreo("formacion@eclap.jcyl.es").build();
+                    .nombre("Demo")
+                    .estado(10)
+                    .color("ROJO")
+                    .usuarioCorreo("formacion@eclap.jcyl.es")
+                    .build();
+
 
             TareaModelo resultado = tareaSrv.crearTarea( modelo );
 
             System.out.println( "Tarea creada : " + resultado.getNombre() + " por " + resultado.getUsuarioCorreo() );
 
-            List<TareaModelo> misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
-
-            misTareas.forEach( t -> { System.out.println ("Mi Tarea : " + t.getNombre() + " por " + t.getUsuarioCorreo()  ); } );
-
-            resultado.setNombre ("Demo terminada");
-
-            resultado.setUsuarioCorreo(""); //deberia dar error
-
-
-            TareaModelo resultado2 = tareaSrv.modificarTarea( @Valid resultado );
-
-            System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
-
-            /*
-            tareaSrv.borrarTarea(resultado2.getId());
-
-            misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
-            System.out.println ("Contador Tareas: " + misTareas.size() );
-            */
         };
     }
 

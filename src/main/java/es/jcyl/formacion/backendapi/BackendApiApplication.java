@@ -6,6 +6,7 @@ import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.RolesRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
 import es.jcyl.formacion.backendapi.servicios.TareaServicio;
+import jakarta.validation.Valid;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -71,7 +72,10 @@ public class BackendApiApplication {
 
             resultado.setNombre ("Demo terminada");
 
-            TareaModelo resultado2 = tareaSrv.modificarTarea( resultado );
+            resultado.setUsuarioCorreo(""); //deberia dar error
+
+
+            TareaModelo resultado2 = tareaSrv.modificarTarea( @Valid resultado );
 
             System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
 

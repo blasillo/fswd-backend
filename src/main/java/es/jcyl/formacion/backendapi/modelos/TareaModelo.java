@@ -12,20 +12,20 @@ public class TareaModelo {
 
     private Integer id;
 
-    @NotNull (message = "100")
-    @NotEmpty (message = "100")
-    @Size (max = 200)
+    // TODO
+    // TODO
+    // TODO
     private String  nombre;
 
-    @Min(0)
-    @Max(100)
+    // TODO
+    // TODO
     private Integer estado;
 
-    @Size (max = 50)
+    // TODO
     private String  color;
 
-    @Email
-    @NotNull
-    @NotEmpty
+    // TODO
+    // TODO
+    // TODO
     private String  usuarioCorreo;
 }

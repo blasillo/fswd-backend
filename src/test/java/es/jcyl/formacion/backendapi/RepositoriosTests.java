@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-
 public class RepositoriosTests {
     @Autowired
     private TareasRepositorio tareasRepo;

@@ -8,21 +8,27 @@ import es.jcyl.formacion.backendapi.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-// TODO : anotación requerida
-// TODO : anotaciones necesarios
+// anotación requerida
+@Service
+// anotaciones necesarios
+@RequiredArgsConstructor
 public class TareaServicioImpl implements TareaServicio {
 
-    // TODO : inyectar dependecias
-    // TareasRepositorio tareasRepo;
-    // UsuariosRepositorio usuariosRepo;
+    // inyectar dependecias
+    @Autowired
+    TareasRepositorio tareasRepo;
+    @Autowired
+    UsuariosRepositorio usuariosRepo;
 
-    // TODO: inyectar dependencia
-    // TareaMapeo mapeo;
+    // inyectar dependencia
+    @Autowired
+    TareaMapeo mapeo;
 
 
     @Override
@@ -36,21 +42,26 @@ public class TareaServicioImpl implements TareaServicio {
 
     @Override
     public List<TareaModelo> obtenerTareas(String correo) {
-        // TODO: recuperar usuario a partir del correo
+        // recuperar usuario a partir del correo
+        Usuario usuario = usuariosRepo.findByCorreo(correo).orElseThrow(() ->  new EntityNotFoundException("El usuario no existe"));
 
-        List<Tarea> tareas = // TODO recuperar la lista de tareas
+        List<Tarea> tareas = tareasRepo.findByUsuario(usuario);// recuperar la lista de tareas
 
-        List<TareaModelo> respuesta = // TODO convertir la lista de entidades en lista de DTO
+        List<TareaModelo> respuesta; //  convertir la lista de entidades en lista de DTO
+        respuesta = tareas.stream().map(mapeo::deEntidadAModelo).toList();
 
         return respuesta;
     }
 
     @Override
     public TareaModelo modificarTarea(TareaModelo modelo) {
-        Tarea tarea = tareasRepo.findById(modelo.getId());
+        Optional<Tarea> tarea = tareasRepo.findById(modelo.getId());
         if(tarea.isEmpty()) {
             throw new EntityNotFoundException("La tarea no existe");
         }
+
+        String email = modelo.getUsuarioCorreo();
+
         Usuario usuario = usuariosRepo.findByCorreo(email)
                 .orElseThrow( () ->  new EntityNotFoundException("El usuario no existe"));
 
@@ -59,11 +70,12 @@ public class TareaServicioImpl implements TareaServicio {
 
     @Override
     public Integer borrarTarea(Integer tareaId) {
-        Optional<Tarea> tarea = tareasRepo.findById(tareaId).orElseThrow(
-                () -> new EntityNotFoundException("La tarea no existe");
-        );
+        Optional<Tarea> tarea = tareasRepo.findById(tareaId);
 
-        // TODO : si la tarea existe borrarla
+        if(tarea.isEmpty()) {
+            throw new EntityNotFoundException("La tarea no existe");
+        }
+        tarea.ifPresent(tareasRepo::delete);
 
         return tareaId;
     }

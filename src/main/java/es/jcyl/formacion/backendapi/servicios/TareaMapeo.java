@@ -23,11 +23,12 @@ public class TareaMapeo {
     public TareaModelo deEntidadAModelo (Tarea tarea) {
 
         return TareaModelo.builder()
-                // TODO : asignar los valores
-                // TODO
-                // TODO
-                // TODO
-                // TODO
+                //  asignar los valores
+                .id(tarea.getId())
+                .nombre(tarea.getNombre())
+                .estado(tarea.getEstado())
+                .color(tarea.getColor())
+                .usuarioCorreo(tarea.getUsuario().getCorreo())
                 .build();
     }
  }

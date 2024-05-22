@@ -8,7 +8,6 @@ import es.jcyl.formacion.backendapi.persistencia.repositorios.TareasRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,13 +20,13 @@ import java.util.Optional;
 public class TareaServicioImpl implements TareaServicio {
 
     // inyectar dependecias
-    @Autowired
+    // @Autowired
     TareasRepositorio tareasRepo;
-    @Autowired
+    // @Autowired
     UsuariosRepositorio usuariosRepo;
 
     // inyectar dependencia
-    @Autowired
+    // @Autowired
     TareaMapeo mapeo;
 
 
@@ -72,6 +71,7 @@ public class TareaServicioImpl implements TareaServicio {
     public Integer borrarTarea(Integer tareaId) {
         Optional<Tarea> tarea = tareasRepo.findById(tareaId);
 
+        // si la tarea existe borrarla
         if(tarea.isEmpty()) {
             throw new EntityNotFoundException("La tarea no existe");
         }

@@ -21,14 +21,12 @@ import java.util.Optional;
 public class TareaServicioImpl implements TareaServicio {
 
     // inyectar dependecias
-    @Autowired
-    TareasRepositorio tareasRepo;
-    @Autowired
-    UsuariosRepositorio usuariosRepo;
+    private final TareasRepositorio tareasRepo;
+
+    private final UsuariosRepositorio usuariosRepo;
 
     // inyectar dependencia
-    @Autowired
-    TareaMapeo mapeo;
+    private final TareaMapeo mapeo;
 
 
     @Override

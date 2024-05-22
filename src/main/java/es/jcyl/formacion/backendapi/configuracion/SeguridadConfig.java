@@ -34,8 +34,7 @@ public class SeguridadConfig {
         http.csrf(AbstractHttpConfigurer::disable) // Deshabilita CSRF si no es necesario (opcional, según tus necesidades)
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/login/autenticar",
-                                        "/tareas")
+                                // TODO : permitir acceso a tareas y autenticar
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated() // Permite todas las solicitudes sin autenticación
@@ -68,26 +67,5 @@ public class SeguridadConfig {
     }
 
 
-
-
-
-    /*
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req ->
-                        req.requestMatchers(
-                                "/api/v1/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                ).sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtFiltro, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-*/
 
 }

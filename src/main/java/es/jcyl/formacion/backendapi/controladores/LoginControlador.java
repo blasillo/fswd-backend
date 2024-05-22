@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+//TODO CORS
 @RequestMapping("login")
 @RequiredArgsConstructor
 public class LoginControlador {

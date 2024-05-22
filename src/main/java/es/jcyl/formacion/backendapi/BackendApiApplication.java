@@ -6,6 +6,7 @@ import es.jcyl.formacion.backendapi.persistencia.entidades.Usuario;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.RolesRepositorio;
 import es.jcyl.formacion.backendapi.persistencia.repositorios.UsuariosRepositorio;
 import es.jcyl.formacion.backendapi.servicios.TareaServicio;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableJpaAuditing
+@Slf4j
 public class BackendApiApplication {
 
     public static void main(String[] args) {
@@ -47,10 +49,10 @@ public class BackendApiApplication {
 
             List<Usuario> admins =  usuarioRepo.listadoAdministradores();//usuarioRepo.findByRolesIs( admin );
             admins.forEach( usu -> {
-                System.out.println ("Administrador: " + usu.getNombreCompleto() );
+                log.info ("Administrador: {} ", usu.getNombreCompleto() );
             });
 
-            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { System.out.println ("Usuario base: " + u.getNombreCompleto() );});
+            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { log.info("Usuario base: {} " , u.getNombreCompleto() );});
 
 
             // crear tarea
@@ -63,22 +65,31 @@ public class BackendApiApplication {
 
             TareaModelo resultado = tareaSrv.crearTarea( modelo );
 
-            System.out.println( "Tarea creada : " + resultado.getNombre() + " por " + resultado.getUsuarioCorreo() );
+            TareaModelo modelo3 = TareaModelo.builder()
+                    .nombre("Demo 3")
+                    .estado(20)
+                    .color("VERDE")
+                    .usuarioCorreo("pei@eclap.jcyl.es").build();
+
+            TareaModelo resultado3 = tareaSrv.crearTarea( modelo3 );
+
+            log.info( "Tarea creada : {} por {} " ,resultado.getNombre() , resultado.getUsuarioCorreo() );
+            log.info( "Tarea creada : {} por {} " ,resultado3.getNombre() , resultado3.getUsuarioCorreo() );
 
             List<TareaModelo> misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
 
-            misTareas.forEach( t -> { System.out.println ("Mi Tarea : " + t.getNombre() + " por " + t.getUsuarioCorreo()  ); } );
+            misTareas.forEach( t -> { log.info("Mi Tarea : {} por {} " ,t.getNombre() , t.getUsuarioCorreo()  ); } );
 
             resultado.setNombre ("Demo terminada");
 
             TareaModelo resultado2 = tareaSrv.modificarTarea( resultado );
 
-            System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
+            log.info( "Tarea modificada {} por {}: ", resultado2.getNombre() , resultado2.getUsuarioCorreo() );
 
             tareaSrv.borrarTarea(resultado2.getId());
 
             misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
-            System.out.println ("Contador Tareas: " + misTareas.size() );
+            log.info ("Contador Tareas: {}", misTareas.size() );
 
         };
     }

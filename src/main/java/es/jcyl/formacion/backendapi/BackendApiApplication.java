@@ -55,11 +55,9 @@ public class BackendApiApplication {
             // consultar
 
             List<Usuario> admins =  usuarioRepo.listadoAdministradores();//usuarioRepo.findByRolesIs( admin );
-            admins.forEach( usu -> {
-                log.info ("Administrador: {} ", usu.getNombreCompleto() );
-            });
+            admins.forEach( usu -> log.info ("Administrador: {} ", usu.getNombreCompleto() ));
 
-            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { log.info("Usuario base: {} " , u.getNombreCompleto() );});
+            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> log.info("Usuario base: {} " , u.getNombreCompleto() ));
 
 
             // crear tarea
@@ -85,7 +83,7 @@ public class BackendApiApplication {
 
             List<TareaModelo> misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
 
-            misTareas.forEach( t -> { log.info("Mi Tarea : {} por {} " ,t.getNombre() , t.getUsuarioCorreo()  ); } );
+            misTareas.forEach( t -> log.info("Mi Tarea : {} por {} " ,t.getNombre() , t.getUsuarioCorreo()  ));
 
             resultado.setNombre ("Demo terminada");
 

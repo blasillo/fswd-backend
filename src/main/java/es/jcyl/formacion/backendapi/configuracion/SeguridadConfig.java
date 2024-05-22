@@ -34,11 +34,17 @@ public class SeguridadConfig {
         http.csrf(AbstractHttpConfigurer::disable) // Deshabilita CSRF si no es necesario (opcional, según tus necesidades)
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .anyRequest().permitAll() // Permite todas las solicitudes sin autenticación
+                                .requestMatchers("/login/autenticar",
+                                        "/tareas")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated() // Permite todas las solicitudes sin autenticación
                 );
 
         return http.build();
     }
+
+
 
 
     @Bean

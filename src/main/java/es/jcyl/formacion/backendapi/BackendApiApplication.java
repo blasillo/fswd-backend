@@ -47,10 +47,10 @@ public class BackendApiApplication {
 
             List<Usuario> admins =  usuarioRepo.listadoAdministradores();//usuarioRepo.findByRolesIs( admin );
             admins.forEach( usu -> {
-                System.out.println ("Administrador: " + usu.getNombreCompleto() );
+                /*System.out.println ("Administrador: " + usu.getNombreCompleto() ); */
             });
 
-            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { System.out.println ("Usuario base: " + u.getNombreCompleto() );});
+            rolRepo.listadoUsuariosPorRol( "BASE").forEach( u -> { });
 
 
             // crear tarea
@@ -63,7 +63,7 @@ public class BackendApiApplication {
 
             TareaModelo resultado = tareaSrv.crearTarea( modelo );
 
-            System.out.println( "Tarea creada : " + resultado.getNombre() + " por " + resultado.getUsuarioCorreo() );
+            //System.out.println( "Tarea creada : " + resultado.getNombre() + " por " + resultado.getUsuarioCorreo() );
 
             List<TareaModelo> misTareas = tareaSrv.obtenerTareas( "formacion@eclap.jcyl.es" );
 
@@ -73,7 +73,7 @@ public class BackendApiApplication {
 
             TareaModelo resultado2 = tareaSrv.modificarTarea( resultado );
 
-            System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
+            //System.out.println( "Tarea modificada : " + resultado2.getNombre() + " por " + resultado2.getUsuarioCorreo() );
 
             /*
             tareaSrv.borrarTarea(resultado2.getId());

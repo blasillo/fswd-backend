@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 public class RepositoriosTests {
-    @Autowired
+    // TODO: inyectar
     private TareasRepositorio tareasRepo;
 
-    @Autowired
+    // TODO: inyectar
     private UsuariosRepositorio usuariosRepo;
 
 
@@ -50,7 +50,7 @@ public class RepositoriosTests {
         List<Tarea> lista = tareasRepo.findByUsuario(usuario);
 
         // entonces
-        assertThat(lista).hasSize(1);
+        // TODO: comprobar que la lista existe y que tiene al menos 1 elemento
 
     }
 
@@ -68,9 +68,9 @@ public class RepositoriosTests {
         // when
         Usuario recuperado = usuariosRepo.findByCorreo("rnavas@fmail.com").orElse(null);
 
-        assertThat(recuperado).isNotNull();
+        // TODO: comprobar que se ha recuperado un usuario
 
-        assertThat(recuperado.getId()).isEqualTo( usuario.getId() );
+        // TODO: comprobar que es el mismo que se insertó originalmente
 
     }
 }

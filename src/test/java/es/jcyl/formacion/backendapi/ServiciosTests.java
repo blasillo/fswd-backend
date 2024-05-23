@@ -31,14 +31,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 public class ServiciosTests {
 
-    @Autowired
+    // TODO: inyectar
     private TareasRepositorio tareasRepo;
 
-
-    @Autowired
+    // TODO: inyectar
     private UsuariosRepositorio usuariosRepo;
 
-    @Autowired
+    // TODO: inyectar
     private TareaMapeo mapeo;
 
     private TareaServicio servicio;
@@ -67,10 +66,11 @@ public class ServiciosTests {
     @Order(1)
     public void deberiaCrearTarea() {
 
-        Usuario result = usuariosRepo.findByCorreo("fede.valverde@fmail.com").orElse(null);
+        Usuario result = usuariosRepo.findByCorreo("fede.valverde@fmail.com")
+                .orElse(null);
 
-        assertNotNull(result);
-        assertEquals("fede.valverde@fmail.com", result.getCorreo());
+        // TODO: se crea la tarea
+        // TODO: el correo corresponde al usuario
 
         TareaModelo miTarea = TareaModelo.builder()
                 .nombre("Primera Tarea")
@@ -81,10 +81,10 @@ public class ServiciosTests {
 
         TareaModelo tareaResult = servicio.crearTarea( miTarea );
 
-        assertNotNull (tareaResult);
-        assertEquals(miTarea.getNombre(), tareaResult.getNombre());
-        assertNotNull( tareaResult.getId());
-        assertEquals( tareaResult.getUsuarioCorreo() , miTarea.getUsuarioCorreo());
+        // TODO: se ha creado la tarea
+        //  TODO: tiene el mismo nombre que se ha asignado
+        // TODO: se le asignado un id
+        // TODO: pertenece al usuario
 
     }
 
@@ -102,8 +102,8 @@ public class ServiciosTests {
 
         List<TareaModelo> listado = servicio.obtenerTareas("fede.valverde@fmail.com" );
 
-        assertNotNull(listado);
-        assertTrue(listado.size() >= 1);
+        // TODO: se obtine una lista
+        // TODO: la lista tiene un registro
     }
 
     @Test
@@ -111,8 +111,7 @@ public class ServiciosTests {
     public void deberiaLanzarExcepcionUsuarioNoExiste() {
         String correo = "no.existe@fmail.com";
 
-        EntityNotFoundException excepcion = assertThrows( EntityNotFoundException.class,
-                () -> { servicio.obtenerTareas( correo ); });
+        //TODO: lanza EntityNotFoundException.class cuando servicio.obtenerTareas( correo )
     }
 
 
@@ -133,10 +132,10 @@ public class ServiciosTests {
 
         TareaModelo tareaModif = servicio.modificarTarea( tareaResult );
 
-        assertNotNull( tareaModif);
-        assertEquals( tareaModif.getId(), tareaResult.getId());
-        assertEquals( tareaModif.getNombre(), tareaResult.getNombre() );
-        assertEquals( tareaModif.getEstado(), 90 );
+        // TODO: la tarea existe
+        // TODO: conserva el mismo id
+        // TODO: conserva el mismo nombre
+        // TODO: se ha actualizado el campo
 
     }
 
@@ -153,14 +152,14 @@ public class ServiciosTests {
 
         TareaModelo tareaResult = servicio.crearTarea( miTarea );
 
-        assertNotNull( tareaResult );
+        // TODO: la tarea existe
+
         Integer id = tareaResult.getId();
 
         servicio.borrarTarea( id );
 
         Optional<Tarea> result = tareasRepo.findById( id );
-        assertNotNull(result);
-        assertFalse(result.isPresent(), "El Optional debería estar vacío");
+        // TODO: comprobar que se ha borrado
 
     }
 
@@ -178,7 +177,8 @@ public class ServiciosTests {
                 .build();
 
         var violationes = validator.validate(miTarea);
-        assertFalse(violationes.isEmpty(), "El correo electrónico debería ser inválido");
+
+        // TODO: comprobar que el correo es invalido
 
     }
 
